@@ -1,0 +1,10 @@
+{
+  "name": "chinook",
+  "description": "Master-detail with Chinook database",
+  "author": "Lovro Subelj <lovro.subelj@fri.uni-lj.si>",
+  "dependencies": {
+    "express": "latest",
+    "sqlite3": "latest",
+    "ejs": "latest"
+  }
+}
