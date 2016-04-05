@@ -192,3 +192,12 @@ app.get('/pages', function(request, response) {
 });
 
 
+/*Server startup*/
+app.listen(process.env.PORT, function() {
+  console.log("Strežnik je zagnan!");
+});
+
+/*Default page*/
+app.get('/', function(request, response) {
+    response.redirect('/artists/1');
+});
