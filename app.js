@@ -4,12 +4,13 @@ if (!process.env.PORT)
 /* initialization of Chinook database */
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database('chinook.sl3');
+var naStrani = 20;
 
 /* calls callback with specified page's artists and artist's details */
 var artists = function(page, artist, details, callback) {
   db.all("SELECT Artist.ArtistId, Name, StarsNo " +
     "FROM Artist, Stars WHERE Artist.ArtistId = Stars.ArtistId " +
-    "ORDER BY Name LIMIT 33 OFFSET ($page - 1) * 33",
+    "ORDER BY Name LIMIT " + naStrani +" OFFSET ($page - 1) * " + naStrani,
     {$page: page}, function(error, rows) {
       if (error) {
         console.log(error);
@@ -187,7 +188,7 @@ app.get('/pages', function(request, response) {
       console.log(error);
       response.sendStatus(500);
     } else
-      response.send({pages: Math.ceil(row.Artists / 33)});
+      response.send({pages: Math.ceil(row.Artists / naStrani)});
   });
 });
 
