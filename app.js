@@ -19,7 +19,7 @@ var artists = function(page, artist, details, callback) {
         var result = '<div id="artists">';
         for (var i = 0; i < rows.length; i++) {
           var selected = rows[i].ArtistId == artist;
-          result += '<div id="' + rows[i].ArtistId + '"><span class="numbers">' + (page * 33 + i - 32) + '.</span>' +
+          result += '<div id="' + rows[i].ArtistId + '"><span class="numbers">' + (page * naStrani + i - (naStrani-1)) + '.</span>' +
             '<a href="/artists/' + page + (!selected? '/details/' + rows[i].ArtistId: '') + '#' + rows[i].ArtistId + '">' +
             '<button type="button" class="btn btn-default' + (selected? ' selected': '') + '">' +
             rows[i].Name + '</button></a><span class="stars">';
@@ -94,9 +94,19 @@ var genres = function(artist, callback) {
         console.log(error);
         callback('<strong>Something went wrong!</strong>');
       } else {
-        var result = '<h5>Genres</h5><div id="genres">' + 
+        if(rows.length == 0) {
+          var result = '<h5>Genres</h5><div id="genres">' + 
           'No genres for this artist' + 
           '</div>';
+        } else {
+          var result = '<h5>Genres</h5><div id="genres">';
+         for(i in rows) {
+           result += rows[i].Name;
+           if(i != rows.length-1)
+            result += '|';
+         } 
+         result += '</div>'
+        }
         callback(result);
       }
   });
